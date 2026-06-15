@@ -1,50 +1,26 @@
-import { useReducer } from "react";
-
-function reducer(state, action) {
-
-  if (action.type === "increment") {
-    return { count: state.count + 1 };
-  }
-
-  if (action.type === "decrement") {
-    return { count: state.count - 1 };
-  }
-
-  if (action.type === "reset") {
-    return { count: 0 };
-  }
-
-  return state;
-}
+import { useState, useEffect } from "react";
 
 function App() {
 
-  const [state, dispatch] = useReducer(reducer, {
-    count: 0
-  });
+  const [time, setTime] = useState(new Date());
+
+  useEffect(() => {
+
+    setInterval(() => {
+
+      setTime(new Date());
+
+    }, 1000);
+
+  }, []);
 
   return (
+
     <div>
 
-      <h1>{state.count}</h1>
-
-      <button
-        onClick={() => dispatch({ type: "increment" })}
-      >
-        Increment
-      </button>
-
-      <button
-        onClick={() => dispatch({ type: "decrement" })}
-      >
-        Decrement
-      </button>
-
-      <button
-        onClick={() => dispatch({ type: "reset" })}
-      >
-        Reset
-      </button>
+      <h1>
+        {time.toLocaleTimeString()}
+      </h1>
 
     </div>
   );
